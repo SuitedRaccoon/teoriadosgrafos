@@ -31,7 +31,7 @@
 
 ## Exemplo
 
-## Grafo
+### Grafo
 
 |           |    A |    B |    C |    D |    E |    F |
 |:----------|-----:|-----:|-----:|-----:|-----:|-----:|
@@ -42,14 +42,16 @@
 | E         | 1000 |    2 | 1000 | 1000 |    0 |    6 |
 | F         | 1000 | 1000 | 1000 | 1000 | 1000 |    0 |
 
-## Inicializando Tabela
+### Inicializando Tabela
 
 |           | A* |    B |    C |    D |    E |    F |
 |:----------|---:|-----:|-----:|-----:|-----:|-----:|
 | Distância |  0 | 1000 | 1000 | 1000 | 1000 | 1000 |
 | Anterior  |  - |    - |    - |    - |    - |    - |
 
-## Saindo de A
+## Inicio do Loop
+
+### Saindo de A
 
 Analisamos os vizinhos de `A` e atualizamos a tabela quando a nova distância for menor que a distância registrada anteriormente.
 
@@ -72,7 +74,7 @@ Como a menor distância de `A` até `C` já foi encontrada, `C` será fechado.
 | Distância |  0 | 12 |  4 | 1000 | 1000 | 1000 |
 | Anterior  |  - |  A |  A |    - |    - |    - |
 
-## Saindo de C
+### Saindo de C
 
 Pode-se ir para:
 
@@ -95,7 +97,7 @@ Entre os vértices ainda abertos, `E` possui a menor distância. Portanto, `E` s
 | Distância |  0 | 12 |  4 | 1000 |  6 | 1000 |
 | Anterior  |  - |  A |  A |    - |  C |    - |
 
-## Saindo de E
+### Saindo de E
 
 Pode-se ir para:
 
@@ -118,7 +120,7 @@ Entre os vértices ainda abertos, `B` possui a menor distância. Portanto, `B` s
 | Distância |  0 |  8 |  4 | 1000 |  6 | 12 |
 | Anterior  |  - |  E |  A |    - |  C |  E |
 
-## Saindo de B
+### Saindo de B
 
 Pode-se ir para:
 
@@ -144,7 +146,7 @@ Como `12 < 14`, o próximo vértice fechado será `F`.
 | Distância |  0 |  8 |  4 | 14 |  6 | 12 |
 | Anterior  |  - |  E |  A |  B |  C |  E |
 
-## Saindo de F
+### Saindo de F
 
 Não podemos ir para lugar algum.
 
@@ -157,7 +159,7 @@ O único vértice ainda aberto é `D`, então `D` será fechado.
 | Distância |  0 |  8 |  4 | 14 |  6 | 12 |
 | Anterior  |  - |  E |  A |  B |  C |  E |
 
-## Saindo de D
+### Saindo de D
 
 Pode-se ir para:
 
@@ -166,7 +168,7 @@ Pode-se ir para:
 
 A tabela não precisa de modificações.
 
-### Fim do Loop
+## Fim do Loop
 
 Sendo assim, conseguimos a seguinte tabela, com todos os vértices fechados:
 
