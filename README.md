@@ -14,7 +14,7 @@
    - todos os demais vértices recebem infinito, neste caso `1000`;
    - todos os valores de Anterior começam como `-`.
 
-## Início do Loop
+### Início do Loop
 
 1. Escolha, entre todos os vértices ainda não fechados, aquele que possui a menor distância registrada na tabela.
 
@@ -28,6 +28,8 @@
 
    ```md
    nova distância = distância do vértice atual + peso da aresta
+
+### Fim do Loop
 
 ## Exemplo
 
@@ -48,8 +50,6 @@
 |:----------|---:|-----:|-----:|-----:|-----:|-----:|
 | Distância |  0 | 1000 | 1000 | 1000 | 1000 | 1000 |
 | Anterior  |  - |    - |    - |    - |    - |    - |
-
-## Inicio do Loop
 
 ### Saindo de A
 
@@ -167,9 +167,6 @@ Pode-se ir para:
 2. `F`, mas `F` já foi visitado.
 
 A tabela não precisa de modificações.
-
-## Fim do Loop
-
 Sendo assim, conseguimos a seguinte tabela, com todos os vértices fechados:
 
 |           | A* | B* | C* | D* | E* | F* |
