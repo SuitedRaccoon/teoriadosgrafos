@@ -1,0 +1,35 @@
+# Arquivos gerados por compilação C/C++
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+*.dll
+*.dylib
+*.pdf
+
+# Pastas de build/output
+output/
+build/
+dist/
+bin/
+obj/
+
+# Executáveis sem extensão
+dijkstra
+grafo
+main
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.tmp
+*.log
