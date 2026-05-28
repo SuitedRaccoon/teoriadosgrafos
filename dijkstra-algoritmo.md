@@ -12,7 +12,7 @@
 5. Inicializar a tabela:
    - a distância do ponto de partida para ele mesmo recebe `0`;
    - todos os demais vértices recebem infinito, neste caso `1000`;
-   - todos os valores de Anterior começam como `-`.
+   - todos os valores de Anterior começam como `-` (no código usaremos `-1`).
 
 ## Início do Loop
 
@@ -28,3 +28,5 @@
 
    ```md
    nova distância = distância do vértice atual + peso da aresta
+
+## Fim do Loop
