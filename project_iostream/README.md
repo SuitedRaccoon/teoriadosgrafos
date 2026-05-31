@@ -62,7 +62,6 @@ Ela precisa armazenar informações como:
 * Quais vértices estão conectados;
 * Se o grafo é direcionado ou não;
 * Se o grafo é ponderado ou não;
-* Se as arestas possuem peso.
 
 A classe `Grafo` deve ser responsável por operações como:
 
