@@ -4,9 +4,14 @@
 #include <string>
 #include <vector>
 
+//valores padrão para pesos de arestas
 constexpr int INFINITO = 1000;
 constexpr int PADRAO = 1;
 constexpr int INICIO = 0;
+//valores padrão para fechamento de vértices
+constexpr bool ABERTO = false;
+constexpr bool FECHADO = true;
+//valor padrão para vértices visitados
 constexpr int VAZIO = -1;
 
 class Aresta {
@@ -48,7 +53,7 @@ public:
     bool aresta_existe(int origem, int destino) const;
     void rm_aresta(int origem, int destino);
     void add_aresta(int origem, int destino, float peso);
-    float obter_peso(int origem, int destino) const;
+    float get_peso(int origem, int destino) const;
     std::vector<int> vizinhos(int origem) const;
     //interface
     void listar_arestas(void) const;

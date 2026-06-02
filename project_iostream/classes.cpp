@@ -78,7 +78,7 @@ void Grafo::add_aresta(int origem, int destino, float peso) {
         }
     }
 }
-float Grafo::obter_peso(int origem, int destino) const {
+float Grafo::get_peso(int origem, int destino) const {
     float peso = INFINITO;
     int indice = buscar_aresta(origem, destino);
 
