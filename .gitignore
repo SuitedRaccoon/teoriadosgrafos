@@ -34,3 +34,5 @@ Thumbs.db
 # Arquivos temporários
 *.tmp
 *.log
+
+*_future.md

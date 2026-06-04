@@ -3,6 +3,7 @@
 #include "classes.hpp"
 #include "testes.hpp"
 #include "algoritmos_busca.hpp"
+#include "algo_dijkstra.hpp"
 
 void imprimir_resultado_dijkstra(const ResultadoDijkstra& resultado) {
     if (!resultado.valido) {
