@@ -4,10 +4,7 @@
 #include "algoritmos_busca.hpp"
 
 
-void bellman_ford(const Grafo& grafo, int origem){
 
-    
-}
 
 void a_star(const Grafo& grafo, int origem){}
 

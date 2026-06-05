@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include "classes.hpp"
 #include "algo_dijkstra.hpp"
 
 
@@ -8,7 +7,7 @@ ResultadoDijkstra dijkstra(const Grafo& grafo, int origem){
 //Primeiramente verifica se a origem é válida antes de prosseguir com o algoritmo
     int vertices = grafo.get_qtd_vertices();
     if (origem < 0 or origem >= vertices){
-        std::cout << "\n Origem inválida. Algoritmo de Dijkstra não será executado!" << '\n';
+        std::cout << "\nOrigem inválida. Algoritmo de Dijkstra não será executado!" << '\n';
         return {origem, false, {}, {}};
     }
 //Inicialização da tabela de caminhos
@@ -17,7 +16,9 @@ ResultadoDijkstra dijkstra(const Grafo& grafo, int origem){
     std::vector<int> anterior(vertices, VAZIO);
     distancia[origem] = INICIO;
 //Declaração de variáveis internas de controle
-    int atual;
+    int atual, vizinho;
+    float peso , nova_distancia;
+    std::vector<int> vizinhos_atual;
     //(*)Função Lambda que verifical qual é o vértice aberto com a menor distância
     auto menor_aberto = [&fechamento, &distancia, vertices] (){
         float menor_distancia = INFINITO;
@@ -33,12 +34,12 @@ ResultadoDijkstra dijkstra(const Grafo& grafo, int origem){
 //Loop principal do algoritmo
     while((atual = menor_aberto()) != VAZIO){
         fechamento[atual] = FECHADO;
-        std::vector<int> vizinhos_atual = grafo.vizinhos(atual);
+        vizinhos_atual = grafo.vizinhos(atual);
         for (size_t i = 0; i < vizinhos_atual.size(); ++i){
-            int vizinho = vizinhos_atual[i];
+            vizinho = vizinhos_atual[i];
             if (fechamento[vizinho] == ABERTO){
-                float peso = grafo.get_peso(atual, vizinho);
-                float nova_distancia = distancia[atual] + peso;
+                peso = grafo.get_peso(atual, vizinho);
+                nova_distancia = distancia[atual] + peso;
                 if (nova_distancia < distancia[vizinho]){
                     distancia[vizinho] = nova_distancia;
                     anterior[vizinho] = atual;

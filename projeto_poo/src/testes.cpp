@@ -37,17 +37,58 @@ void imprimir_resultado_dijkstra(const ResultadoDijkstra& resultado) {
     }
 }
 
+void imprimir_resultado_bellman_ford(const ResultadoBellmanFord& resultado) {
+    if (resultado.ciclo_negativo) {
+        std::cout << "\nResultado inválido. Bellman-Ford detectou ciclo negativo.\n";
+        return;
+    }
+
+    if (!resultado.valido) {
+        std::cout << "\nResultado inválido. Bellman-Ford não foi executado.\n";
+        return;
+    }
+
+    std::cout << "\nResultado do Bellman-Ford a partir do vértice "
+              << resultado.origem << "\n\n";
+
+    std::cout << "Vértice\tDistância\tAnterior\n";
+
+    for (size_t i = 0; i < resultado.distancia.size(); ++i) {
+        std::cout << i << "\t";
+
+        if (resultado.distancia[i] == INFINITO) {
+            std::cout << "INF";
+        } else {
+            std::cout << resultado.distancia[i];
+        }
+
+        std::cout << "\t\t";
+
+        if (resultado.anterior[i] == VAZIO) {
+            std::cout << "-";
+        } else {
+            std::cout << resultado.anterior[i];
+        }
+
+        std::cout << '\n';
+    }
+}
+
 void testes_grafos(void){
+//Grafos a serem testados
     Grafo g1("Modelo 1", 4, true, true);
     Grafo g2("Modelo 2", 4, false, true);
     Grafo g3("Modelo 3", 4, true, false);
     Grafo g4("Teste Remoção", 3, false, true);
     Grafo g5("Teste Entradas Inválidas", 3, true, true);
     Grafo g6("Teste Arestas Duplicadas", 3, true, true);
+    Grafo g7("Bellman-Ford Básico", 4, true, true);
+    Grafo g8("Bellman-Ford com Peso Negativo", 5, true, true);
+    Grafo g9("Bellman-Ford com Ciclo Negativo", 3, true, true);
 
     std::cout << std::boolalpha;
 
-    //teste grafo direcionado e ponderado
+//teste grafo direcionado e ponderado
     std::cout << '\n' << std::string(10, '-') << "Teste 01: Grafo Direcionado e Ponderado" << std::string(10, '-') << '\n';
     g1.add_aresta(0, 1, 5);
     g1.add_aresta(0, 2, 3);
@@ -60,7 +101,7 @@ void testes_grafos(void){
     std::cout << "Existe 1 -> 3? " << g1.aresta_existe(1, 3) << '\n';
     std::cout << "Existe 3 -> 1? " << g1.aresta_existe(3, 1) << '\n';
     
-    //teste grafo não direcionado e ponderado
+//teste grafo não direcionado e ponderado
     std::cout << '\n' << std::string(10, '-') << "Teste 02: Grafo Não Direcionado e Ponderado" << std::string(10, '-') << '\n';
     g2.add_aresta(0, 1, 4);
     g2.add_aresta(0, 2, 8);
@@ -73,7 +114,7 @@ void testes_grafos(void){
     std::cout << "Existe 1 -> 0? " << g2.aresta_existe(1, 0) << '\n';
     std::cout << "Peso 3 -> 2: " << g2.get_peso(3, 2) << '\n';
 
-    //teste grafo direcionado não ponderado
+//teste grafo direcionado não ponderado
     std::cout << '\n' << std::string(10, '-') << "Teste 03: Grafo Direcionado e Não Ponderado" << std::string(10, '-') << '\n';
     g3.add_aresta(0, 1, 99);
     g3.add_aresta(1, 2, 50);
@@ -84,7 +125,7 @@ void testes_grafos(void){
     std::cout << "Peso 1 -> 2: " << g3.get_peso(1, 2) << '\n';
     std::cout << "Existe 3 -> 2? " << g3.aresta_existe(3, 2) << '\n';
     
-    //teste remoção de aresta em grafo não direcionado
+//teste remoção de aresta em grafo não direcionado
     std::cout << '\n' << std::string(10, '-') << "Teste 04: Remoção de Aresta em Grafo Não Direcionado" << std::string(10, '-') << '\n';
     g4.add_aresta(0, 1, 10);
     g4.add_aresta(1, 2, 20);
@@ -96,21 +137,21 @@ void testes_grafos(void){
     std::cout << "\nExiste 0 -> 1? " << g4.aresta_existe(0, 1) << '\n';
     std::cout << "Existe 1 -> 0? " << g4.aresta_existe(1, 0) << '\n';
 
-    // teste de entradas inválidas
+// teste de entradas inválidas
     std::cout << '\n' << std::string(10, '-') << "Teste 05: Entradas Inválidas" << std::string(10, '-') << '\n';
     g5.add_aresta(-1, 2, 5);
     g5.add_aresta(0, 5, 5);
     g5.add_aresta(1, 1, 5);
     g5.imprimir();
 
-    // teste de aresta duplicada
+// teste de aresta duplicada
     std::cout << '\n' << std::string(10, '-') << "Teste 06: Arestas Duplicadas" << std::string(10, '-') << '\n';
     g6.add_aresta(0, 1, 5);
     g6.add_aresta(0, 1, 5);
     g6.add_aresta(0, 1, 9);
     g6.imprimir();
 
-    // testes de Dijkstra
+// testes de Dijkstra
     std::cout << '\n' << std::string(10, '-') 
               << "Teste 07: Dijkstra no Grafo 1 a partir do vértice 0" 
               << std::string(10, '-') << '\n';
@@ -128,4 +169,56 @@ void testes_grafos(void){
               << std::string(10, '-') << '\n';
     ResultadoDijkstra resultado_g3 = dijkstra(g3, 0);
     imprimir_resultado_dijkstra(resultado_g3);
+
+// testes de Bellman-Ford
+    std::cout << '\n' << std::string(10, '-')
+              << "Teste 10: Bellman-Ford Básico no Grafo 7 a partir do vértice 0"
+              << std::string(10, '-') << '\n';
+
+    g7.add_aresta(0, 1, 5);
+    g7.add_aresta(0, 2, 3);
+    g7.add_aresta(1, 3, 2);
+    g7.add_aresta(2, 3, 7);
+
+    g7.apresentar();
+    g7.imprimir();
+
+    ResultadoBellmanFord resultado_g7 = bellman_ford(g7, 0);
+    imprimir_resultado_bellman_ford(resultado_g7);
+
+
+    std::cout << '\n' << std::string(10, '-')
+              << "Teste 11: Bellman-Ford com Peso Negativo sem Ciclo Negativo"
+              << std::string(10, '-') << '\n';
+
+    g8.add_aresta(0, 1, 6);
+    g8.add_aresta(0, 2, 7);
+    g8.add_aresta(1, 2, 8);
+    g8.add_aresta(1, 3, 5);
+    g8.add_aresta(1, 4, -4);
+    g8.add_aresta(2, 3, -3);
+    g8.add_aresta(2, 4, 9);
+    g8.add_aresta(3, 1, -2);
+    g8.add_aresta(4, 3, 7);
+
+    g8.apresentar();
+    g8.imprimir();
+
+    ResultadoBellmanFord resultado_g8 = bellman_ford(g8, 0);
+    imprimir_resultado_bellman_ford(resultado_g8);
+
+
+    std::cout << '\n' << std::string(10, '-')
+              << "Teste 12: Bellman-Ford com Ciclo Negativo"
+              << std::string(10, '-') << '\n';
+
+    g9.add_aresta(0, 1, 1);
+    g9.add_aresta(1, 2, -2);
+    g9.add_aresta(2, 0, -2);
+
+    g9.apresentar();
+    g9.imprimir();
+
+    ResultadoBellmanFord resultado_g9 = bellman_ford(g9, 0);
+    imprimir_resultado_bellman_ford(resultado_g9);
 }

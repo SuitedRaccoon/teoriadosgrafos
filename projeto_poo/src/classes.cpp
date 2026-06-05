@@ -10,7 +10,7 @@ int Aresta::get_destino(void) const {return destino;}
 float Aresta::get_peso(void) const {return peso;}
 //interface
 void Aresta::apresentar(void) const {
-    if (peso > INICIO && peso < INFINITO) {
+    if (peso < INFINITO) {
         std::cout << origem << " ---> " << destino << "  Peso: " << peso << '\n';
     }
 }
@@ -66,6 +66,10 @@ void Grafo::add_aresta(int origem, int destino, float peso) {
     }
     if (!ponderado) {
         peso = PADRAO;
+    }
+    if (!direcionado && peso < 0) {
+        std::cout << "\n Aresta negativa inválida em grafo não direcionado!"; //importante para bellman-ford
+        return;
     }
     if (buscar_aresta(origem, destino) == VAZIO) {
         Aresta aresta1(origem, destino, peso);
